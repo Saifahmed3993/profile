@@ -24,24 +24,72 @@
         .navbar {
             background-color: var(--primary-color);
             padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            padding: 8px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
         .navbar-brand, .nav-link {
             color: white !important;
         }
         
+        .nav-link {
+            position: relative;
+            margin: 0 10px;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
         .hero {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
-            padding: 100px 0;
+            padding: 120px 0 100px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
         }
         
         .section-title {
             position: relative;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             padding-bottom: 15px;
             text-align: center;
+            font-weight: 700;
         }
         
         .section-title::after {
@@ -51,8 +99,9 @@
             left: 50%;
             transform: translateX(-50%);
             width: 80px;
-            height: 3px;
+            height: 4px;
             background-color: var(--secondary-color);
+            border-radius: 2px;
         }
         
         .skill-item {
@@ -62,17 +111,55 @@
         .progress {
             height: 10px;
             border-radius: 5px;
+            background-color: #e9ecef;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            background-color: var(--secondary-color);
+            transition: width 1s ease-in-out;
+        }
+        
+        .soft-skills {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .soft-skill-item {
+            text-align: center;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .soft-skill-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .soft-skill-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
         }
         
         .project-card {
             transition: transform 0.3s;
             margin-bottom: 30px;
             border: none;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+            height: 100%;
         }
         
         .project-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
         }
         
         .timeline {
@@ -113,34 +200,65 @@
         footer {
             background-color: var(--primary-color);
             color: white;
-            padding: 40px 0 20px;
+            padding: 60px 0 30px;
         }
         
         .social-icons a {
             color: white;
             font-size: 24px;
             margin: 0 10px;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
         }
         
         .social-icons a:hover {
             color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
         }
         
         @media (max-width: 768px) {
             .hero {
-                padding: 60px 0;
+                padding: 100px 0 80px;
             }
             
             .section-title {
-                font-size: 24px;
+                font-size: 28px;
+            }
+            
+            .profile-img {
+                width: 120px;
+                height: 120px;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">Saif Aldin Ahmed</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -153,6 +271,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#soft-skills">Soft Skills</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#projects">Projects</a>
@@ -174,6 +295,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
+            <img src="https://placehold.co/150x150/fff/2c3e50?text=SA" alt="Saif Ahmed" class="profile-img">
             <h1>Saif Aldin Ahmed</h1>
             <p class="lead">Full-Stack .NET Developer</p>
             <p>Passionate about problem-solving, leading teams, and delivering modern, user-friendly web solutions</p>
@@ -182,24 +304,24 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-5">
+    <section id="about" class="py-5" style="padding-top: 100px; padding-bottom: 80px;">
         <div class="container">
             <h2 class="section-title">About Me</h2>
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-lg-6">
-                    <p>Ambitious Information Systems student and .NET Team Leader with proven experience in Full-Stack Development. Successfully completed an internship at Digital Egypt Pioneers, where I gained practical exposure to real-world projects and agile workflows. Skilled in leading teams, solving complex problems, and delivering innovative, user-centric web applications.</p>
+                    <p>Ambitious Information Systems student and <strong>.NET Team Leader</strong> with proven experience in Full-Stack Development. Successfully completed an internship at Digital Egypt Pioneers, where I gained practical exposure to real-world projects and agile workflows. Skilled in leading teams, solving complex problems, and delivering innovative, user-centric web applications.</p>
                     <p>I have hands-on experience building scalable applications using .NET, PHP, and C++, and I am currently advancing my expertise in React.js to strengthen my front-end development skills. My goal is to bridge technology with business needs by developing efficient, modern, and impactful software solutions.</p>
                 </div>
                 <div class="col-lg-6">
-                    <div class="card p-3">
+                    <div class="card p-4 shadow-sm">
                         <div class="row">
                             <div class="col-sm-6">
-                                <p><strong>Email:</strong><br>saifahmedelbattawy@gmail.com</p>
-                                <p><strong>Phone:</strong><br>01012034328</p>
+                                <p><strong><i class="fas fa-envelope me-2"></i>Email:</strong><br><a href="mailto:saifahmedelbattawy@gmail.com">saifahmedelbattawy@gmail.com</a></p>
+                                <p><strong><i class="fas fa-phone me-2"></i>Phone:</strong><br><a href="tel:+201011203432">+20 101 120 3432</a></p>
                             </div>
                             <div class="col-sm-6">
-                                <p><strong>Location:</strong><br>Giza, Egypt</p>
-                                <p><strong>LinkedIn:</strong><br>linkedin.com/in/saif-aldin-ahmed</p>
+                                <p><strong><i class="fas fa-map-marker-alt me-2"></i>Location:</strong><br>Giza, Egypt</p>
+                                <p><strong><i class="fab fa-linkedin me-2"></i>LinkedIn:</strong><br><a href="https://www.linkedin.com/in/saif-aldin-ahmed" target="_blank" rel="noopener noreferrer">linkedin.com/in/saif-aldin-ahmed</a></p>
                             </div>
                         </div>
                     </div>
@@ -212,7 +334,7 @@
     <section id="skills" class="py-5 bg-light">
         <div class="container">
             <h2 class="section-title">Technical Skills</h2>
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-md-6">
                     <div class="skill-item">
                         <h5>HTML/CSS</h5>
@@ -271,17 +393,80 @@
         </div>
     </section>
 
+    <!-- Soft Skills Section -->
+    <section id="soft-skills" class="soft-skills">
+        <div class="container">
+            <h2 class="section-title">Soft Skills</h2>
+            <div class="row g-4">
+                <div class="col-md-4 col-sm-6">
+                    <div class="soft-skill-item">
+                        <div class="soft-skill-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h4>Communication & Public Speaking</h4>
+                        <p>Effective verbal and written communication skills with experience in public speaking and team collaboration.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="soft-skill-item">
+                        <div class="soft-skill-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4><strong>Teamwork & Leadership</strong></h4>
+                        <p>Proven ability to lead teams effectively while fostering collaboration and achieving common goals.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="soft-skill-item">
+                        <div class="soft-skill-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h4>Analytical Problem Solving</h4>
+                        <p>Strong analytical skills with a systematic approach to identifying and solving complex problems.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="soft-skill-item">
+                        <div class="soft-skill-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h4>Time Management & Adaptability</h4>
+                        <p>Excellent organizational skills with the ability to prioritize tasks and adapt to changing requirements.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="soft-skill-item">
+                        <div class="soft-skill-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h4>Self-Learning & Conflict Resolution</h4>
+                        <p>Proactive self-learner with strong conflict resolution skills and ability to handle challenging situations.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="soft-skill-item">
+                        <div class="soft-skill-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h4>Attention to Detail</h4>
+                        <p>Meticulous attention to detail ensuring high-quality deliverables and thorough testing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Projects Section -->
     <section id="projects" class="py-5">
         <div class="container">
             <h2 class="section-title">Projects</h2>
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
                     <div class="card project-card h-100">
                         <div class="card-body">
                             <h5 class="card-title">SA School LMS</h5>
                             <p class="card-text">A responsive Learning Management System with dashboards, bilingual support, and user management. Built with HTML5, CSS3/SASS, Bootstrap 5, JS, PHP, and MySQL.</p>
-                            <a href="https://github.com/Saifahmed3993/SA-School-LMS" class="btn btn-primary" target="_blank">View on GitHub</a>
+                            <a href="https://github.com/Saifahmed3993/SA-School" class="btn btn-primary" target="_blank">View on GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -290,16 +475,16 @@
                         <div class="card-body">
                             <h5 class="card-title">3D SPHERE Company Website</h5>
                             <p class="card-text">An interactive web presence for a software business using HTML, CSS, JS, PHP, and MySQL.</p>
-                            <a href="https://github.com/Saifahmed3993/3D-SPHERE-Company-Website" class="btn btn-primary" target="_blank">View on GitHub</a>
+                            <a href="https://github.com/Saifahmed3993/Softwarecompany3993" class="btn btn-primary" target="_blank">View on GitHub</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="card project-card h-100">
                         <div class="card-body">
-                            <h5 class="card-title">Bank Management System</h5>
+                            <h5 class="card-title">Library Management System</h5>
                             <p class="card-text">A C++ desktop application with OOP principles and transaction handling.</p>
-                            <a href="https://github.com/Saifahmed3993/Bank-Management-System" class="btn btn-primary" target="_blank">View on GitHub</a>
+                            <a href="https://github.com/Saifahmed3993/libraryManagementSystem" class="btn btn-primary" target="_blank">View on GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -340,24 +525,29 @@
             <h2 class="section-title">Experience & Volunteering</h2>
             <div class="timeline">
                 <div class="timeline-item">
-                    <h5>Team Leader - .NET Track</h5>
+                    <h5><strong>Team Leader - .NET Track</strong></h5>
                     <p class="text-muted">Digital Egypt Pioneers</p>
+                    <p>Led a team of developers in the .NET track, facilitating learning and project development.</p>
                 </div>
                 <div class="timeline-item">
                     <h5>Front-End Developer - Haya Karima Initiative</h5>
                     <p class="text-muted">Haya Karima Initiative</p>
+                    <p>Contributed to front-end development for a national initiative aimed at improving living conditions in rural areas.</p>
                 </div>
                 <div class="timeline-item">
                     <h5>Public Relations</h5>
                     <p class="text-muted">Evolve Group</p>
+                    <p>Managed public relations and communication strategies for the organization.</p>
                 </div>
                 <div class="timeline-item">
                     <h5>Public Relations</h5>
                     <p class="text-muted">FDU</p>
+                    <p>Handled public relations activities and stakeholder engagement.</p>
                 </div>
                 <div class="timeline-item">
-                    <h5>Programming Head</h5>
-                    <p class="text-muted">Undisclosed Organization</p>
+                    <h5><strong>Programming Head</strong></h5>
+                    <p class="text-muted">Student Organization</p>
+                    <p>Led programming initiatives and managed technical teams for various projects.</p>
                 </div>
             </div>
         </div>
@@ -369,7 +559,7 @@
             <h2 class="section-title">Education & Certifications</h2>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="card mb-4">
+                    <div class="card mb-4 shadow-sm">
                         <div class="card-body">
                             <h5>BSc in Information Systems</h5>
                             <p class="text-muted">Mlsr University for Science & Technology</p>
@@ -378,7 +568,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card mb-4">
+                    <div class="card mb-4 shadow-sm">
                         <div class="card-body">
                             <h5>Full-Stack .NET Internship</h5>
                             <p class="text-muted">Digital Egypt Pioneers (2025)</p>
@@ -387,9 +577,9 @@
                 </div>
             </div>
             
-            <div class="row mt-4">
+            <div class="row mt-4 g-4">
                 <div class="col-md-4">
-                    <div class="card mb-3">
+                    <div class="card mb-3 shadow-sm">
                         <div class="card-body">
                             <h6>+Value Program</h6>
                             <p class="text-muted">NTA (2024)</p>
@@ -397,7 +587,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card mb-3">
+                    <div class="card mb-3 shadow-sm">
                         <div class="card-body">
                             <h6>Intro to Cybersecurity</h6>
                             <p class="text-muted">Cisco (2024)</p>
@@ -405,7 +595,7 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card mb-3">
+                    <div class="card mb-3 shadow-sm">
                         <div class="card-body">
                             <h6>Software Engineering Workshop</h6>
                             <p class="text-muted">Route Academy (2025)</p>
@@ -420,10 +610,10 @@
     <section id="contact" class="py-5 bg-light">
         <div class="container">
             <h2 class="section-title">Contact Me</h2>
-            <div class="row">
+            <div class="row g-4">
                 <div class="col-md-6">
-                    <div class="card p-4">
-                        <form>
+                    <div class="card p-4 shadow-sm">
+                        <form id="contactForm">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" class="form-control" id="name" required>
@@ -441,7 +631,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="card p-4 h-100">
+                    <div class="card p-4 h-100 shadow-sm">
                         <h5>Get in touch</h5>
                         <p>Feel free to reach out for collaboration or just to say hello!</p>
                         <div class="mt-4">
@@ -450,9 +640,9 @@
                             <p><i class="fas fa-map-marker-alt me-2"></i> Giza, Egypt</p>
                         </div>
                         <div class="social-icons mt-4">
-                            <a href="https://www.linkedin.com/in/saif-aldin-ahmed" target="_blank"><i class="fab fa-linkedin"></i></a>
-                            <a href="https://github.com/Saifahmed3993" target="_blank"><i class="fab fa-github"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="https://www.linkedin.com/in/saif-aldin-ahmed" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://github.com/Saifahmed3993" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                            <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
                         </div>
                     </div>
                 </div>
@@ -463,11 +653,89 @@
     <!-- Footer -->
     <footer class="text-center">
         <div class="container">
+            <div class="social-icons mb-3">
+                <a href="https://www.linkedin.com/in/saif-aldin-ahmed" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/Saifahmed3993" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            </div>
             <p>&copy; 2025 Saif Aldin Ahmed. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="fas fa-arrow-up"></i></a>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Back to top button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+        
+        // Animate progress bars when in view
+        const progressBars = document.querySelectorAll('.progress-bar');
+        
+        const animateProgressBars = () => {
+            progressBars.forEach(bar => {
+                const barTop = bar.getBoundingClientRect().top;
+                const barBottom = bar.getBoundingClientRect().bottom;
+                const isVisible = (barTop < window.innerHeight - 100) && (barBottom > 0);
+                
+                if (isVisible) {
+                    bar.style.width = bar.parentElement.previousElementSibling.querySelector('.skill-percentage').textContent;
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', animateProgressBars);
+        window.addEventListener('load', animateProgressBars);
+    </script>
+</body>
 </html>
